@@ -7,11 +7,9 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-// import FingerprintScanner from 'react-native-fingerprint-scanner';
-const {
-  FingerprintScanner
-} = require('react-native-fingerprint-scanner').default;
+import { Platform, StyleSheet, Text, View, Alert } from 'react-native';
+import Permissions from 'react-native-permissions';
+import FingerprintScanner from 'react-native-fingerprint-scanner';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -21,29 +19,41 @@ const instructions = Platform.select({
 });
 
 type Props = {};
+
 export default class App extends Component<Props> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      biometryType: '---',
+      errorMessage: '',
+      locationPermission: '---'
+    };
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
+        <Text style={styles.welcome}>Touch Id: {this.state.biometryType}</Text>
+        <Text style={styles.instructions}>
+          error: {this.state.errorMessage}
+        </Text>
+        <Text style={styles.welcome}>
+          Location Permission: {this.state.locationPermission}
+        </Text>
         <Text style={styles.instructions}>{instructions}</Text>
       </View>
     );
   }
+
   componentDidMount() {
-    console.log('FingerprintScanner: ', FingerprintScanner);
-    FingerprintScanner.authenticate({
-      onAttempt: () => {
-        console.log('attempt: ');
-      }
-    })
-      .then(() => {
-        console.log('success: ');
-      })
-      .catch(error => {
-        console.log('error: ', error);
-      });
+    FingerprintScanner.isSensorAvailable()
+      .then(biometryType => this.setState({ biometryType }))
+      .catch(error => this.setState({ errorMessage: error.message }));
+    Permissions.check('location').then(response => {
+      // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
+      // Alert.alert('Alert Title', response);
+
+      this.setState({ locationPermission: response });
+    });
   }
 }
 

@@ -1,5 +1,5 @@
 {
-  "name": "touch2",
+  "name": "permissionTest",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,15 +7,16 @@
     "test": "jest"
   },
   "dependencies": {
-    "react": "16.5.0",
-    "react-native": "0.57.2",
-    "react-native-fingerprint-scanner": "^2.5.0"
+    "react": "16.6.0-alpha.8af6728",
+    "react-native": "0.57.3",
+    "react-native-fingerprint-scanner": "^2.5.0",
+    "react-native-permissions": "^1.1.1"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
     "jest": "23.6.0",
-    "metro-react-native-babel-preset": "0.48.0",
-    "react-test-renderer": "16.5.0"
+    "metro-react-native-babel-preset": "0.48.1",
+    "react-test-renderer": "16.6.0-alpha.8af6728"
   },
   "jest": {
     "preset": "react-native"
