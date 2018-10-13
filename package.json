@@ -10,6 +10,7 @@
     "react": "16.6.0-alpha.8af6728",
     "react-native": "0.57.3",
     "react-native-fingerprint-scanner": "^2.5.0",
+    "react-native-navigation": "1.x.x",
     "react-native-permissions": "^1.1.1"
   },
   "devDependencies": {
